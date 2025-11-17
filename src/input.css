@@ -134,9 +134,13 @@
     color: #666;
 }
 
-@media(max-width:600px){
-    .video-card{
+@media(max-width:600px) {
+    .video-card {
         width: 100%;
+    }
+
+    .video-card video {
+        height: auto;
     }
 }
 
