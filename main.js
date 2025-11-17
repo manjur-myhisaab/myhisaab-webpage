@@ -1,5 +1,33 @@
-
 const { animate, scroll, inView, stagger } = Motion
+
+
+const videoCards = document.querySelectorAll(".video-card");
+
+let activeCard = null; // track which card is currently large
+
+videoCards.forEach(card => {
+    const video = card.querySelector("video");
+
+    card.addEventListener("mouseenter", () => {
+        // Play video
+        video.play();
+
+        // Remove "large" from previous active card
+        if (activeCard && activeCard !== card) {
+            activeCard.classList.remove("large");
+        }
+
+        // Add "large" to current card
+        card.classList.add("large");
+        activeCard = card;
+    });
+
+    card.addEventListener("mouseleave", () => {
+        // Pause and reset
+        video.pause();
+        video.currentTime = 0;
+    });
+});
 
 
 
