@@ -1,20 +1,30 @@
 const { animate, scroll, inView, stagger } = Motion
 
 
-const videoCards = document.querySelectorAll(".video-card");
 
-let activeCard = null; // track which card is currently large
+const videoCards = document.querySelectorAll(".video-card");
+let activeCard = null;
 
 videoCards.forEach(card => {
     const video = card.querySelector("video");
 
     card.addEventListener("mouseenter", () => {
+        // Add controls only on hover
+        video.setAttribute("controls", true);
+        video.muted = false;
+
         // Play video
-        video.play();
+        // video.play();
 
         // Remove "large" from previous active card
         if (activeCard && activeCard !== card) {
             activeCard.classList.remove("large");
+
+            // Pause previous card video
+            const oldVideo = activeCard.querySelector("video");
+            oldVideo.pause();
+            oldVideo.currentTime = 0;
+            oldVideo.removeAttribute("controls");
         }
 
         // Add "large" to current card
@@ -26,9 +36,11 @@ videoCards.forEach(card => {
         // Pause and reset
         video.pause();
         video.currentTime = 0;
+
+        // Remove controls
+        video.removeAttribute("controls");
     });
 });
-
 
 
 const tabs = document.querySelectorAll(".tab-btn");
